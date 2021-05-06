@@ -1,0 +1,22 @@
+Lets discuss the flow:
+
+1. on mounting app component dispatched "pageLoaded" action
+
+2. action goes to the middleware where we the services are injected (logger and api). It triggers the logger service and then dispatches another action (loadTodos)
+
+3. A) the same thing happens again, it goes to the middleware where the api service is injected.
+   B) We dispatch a set loading action with a true argument (triggering the log service)
+   C) then fetch the todos list using the api services
+   D) if successful, we dispatch a (loadTodosSuccess) action with the fetched todos as an argument
+   E) reducer adds the todo to the state
+   F) dispatch another action to set the loading off
+   G) if error, we dispatch (loadTodosFailure)
+
+4. Onclick => 
+A) we dispatch a a put todo function with an updated todo arguments ( we changed the completed )
+B) clone the todo from the state and update it with the new todo
+C) dispatch a setTodos action with the new todos array as an argument
+D) reducer updates the state
+
+illustration:
+https://imgur.com/a/EE7Gpaj
